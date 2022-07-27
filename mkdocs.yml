@@ -1,0 +1,16 @@
+site_name: Simrobo
+nav:
+  - About Simrobo: index.md
+  - Build and Install: build_and_install/build_and_install.md
+  - Tutorial: 
+    - Gazebo環境でジョイコン操作: tutorial/joy_control.md
+theme: 
+  name: readthedocs
+  language: 'ja'
+extra:
+  search:
+    language: 'ja'
+markdown_extensions:
+  - pymdownx.arithmatex
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
