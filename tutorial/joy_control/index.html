@@ -52,6 +52,12 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Gazebo環境でジョイコン操作</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#empty_world">empty_worldでのジョイコン操作</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#test_world">test_worldでのジョイコン操作</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">ロボットのスポーン位置を変更する</a>
+    </li>
     </ul>
                   </li>
               </ul>
@@ -80,7 +86,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="gazebo">Gazebo環境でジョイコン操作</h1>
-<p>まず、以下のコマンドでGazeboとRViz2を起動する。  </p>
+<h2 id="empty_world">empty_worldでのジョイコン操作</h2>
+<p><strong>empty_worldはGazebo環境にロボットモデル以外何も表示されないワールドである。</strong><br />
+まず、以下のコマンドでGazeboとRViz2を起動する。  </p>
 <pre><code class="language-bash">ros2 launch simrobo_gazebo empty_world.launch.py
 </code></pre>
 <p><img alt="Bringup RViz Image" src="https://github.com/YumaMatsumura/simrobo_documentation/blob/master/images/tutorial/bringup_rviz.png" />
@@ -89,6 +97,30 @@
 <pre><code class="language-bash">ros2 launch simrobo_driver driver.launch.py
 </code></pre>
 <p>ジョイコン操作することで、Gazebo上のロボットモデルが動作する。  </p>
+<h2 id="test_world">test_worldでのジョイコン操作</h2>
+<p><strong>test_worldはGazeboのビルドモードで構築したワールドである。</strong><br />
+まず、以下のコマンドでGazeboとRViz2を起動する。  </p>
+<pre><code class="language-bash">ros2 launch simrobo_gazebo test_world.launch.py
+</code></pre>
+<p>起動したら、ドライバーを起動し、ジョイコン操作できる状態にする。  </p>
+<pre><code class="language-bash">ros2 launch simrobo_driver driver.launch.py
+</code></pre>
+<p>ジョイコン操作することで、Gazebo上のロボットモデルが動作する。  </p>
+<h2 id="_1">ロボットのスポーン位置を変更する</h2>
+<p>Gazebo上のロボットスポーン位置はsimrobo_gazebo/launch/empty_world.launch.pyあるいはtest_world.launch.pyのspawn_entityを編集する。<br />
+<code>-x</code>はx座標、<code>-y</code>はy座標、<code>-z</code>はz座標、<code>-R</code>はロール回転、<code>-P</code>はピッチ回転、<code>-Y</code>はヨー回転を表している。  </p>
+<pre><code class="language-python">spawn_entity = Node(
+    package='gazebo_ros', 
+    executable='spawn_entity.py',
+    arguments=['-entity', 'simrobo',
+                    '-x', '9.0',
+                    '-y', '-5.0',
+                    '-z', '0.2',
+                    '-Y', '3.14',
+                '-topic', '/robot_description'],
+    output='screen'
+)
+</code></pre>
               
             </div>
           </div><footer>
